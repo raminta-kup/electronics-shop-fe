@@ -1,0 +1,44 @@
+import { styled } from "styled-components"
+import { products } from "../data/productsCatalog"
+import { devices } from "../ScreenSizes/screenSizes"
+
+export const IncludedItemsList = ({}) => {
+    return (
+        <StyledList>
+            {products.map(product => {
+                return (
+                    <StyledListItemContainer key={product.id}>
+                        <StyledListItemQuantity>{product.includes[0].quantity}x</StyledListItemQuantity>
+                        <StyledListItem>{product.includes[0].item}</StyledListItem>
+                    </StyledListItemContainer>
+                )
+            })}
+        </StyledList>
+    )
+}
+
+const StyledListItemContainer = styled.li`
+    display: flex;
+    gap: 16px;
+`
+
+const StyledList = styled.ul`
+    display: flex;
+    flex-flow: column;
+    gap: 12px;
+    @media ${devices.tablet} {
+        width: 50%;
+    }
+    @media ${devices.laptop} {
+        width: 100%;
+    }
+`
+
+const StyledListItemQuantity = styled.span`
+    color: #D87D4A;
+    font-weight: 600;
+`
+const StyledListItem = styled.span`
+    color: #979797;
+    font-size: 16px;
+`

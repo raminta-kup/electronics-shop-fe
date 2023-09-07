@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { styled } from "styled-components";
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
+import { GlobalStyle } from "./globalStyles.js";
+import { Checkout } from "./components/checkout/Checkout";
+import { ProductDisplay } from "./components/ProductDisplay";
+import { HomePage } from "./components/HomePage";
+import { PageNotFound } from "./components/PageNotFound";
+import { Routes, Route, } from "react-router-dom";
+import { ProductPage } from "./components/ProductPage";
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <GlobalStyle />
+      <Header />
+      <Routes>
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/headphones" element={<ProductPage productCategory="headphones" />} />
+        <Route path="/headphones/:id" element={"" } />
+        <Route path="/earphones" element={<ProductPage productCategory="earphones" />} />
+        <Route path="/earphones/:id" element={"" } />
+        <Route path="/speakers" element={<ProductPage productCategory="speakers" />} />
+        <Route path="/speakers/:id" element={ ""} />
+      </Routes>
+      <Footer />
+    </>
+  )
 }
 
 export default App;
