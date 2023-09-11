@@ -1,15 +1,16 @@
 import { styled } from "styled-components"
-import { products } from "../data/productsCatalog"
 import { devices } from "../ScreenSizes/screenSizes"
 
-export const IncludedItemsList = ({}) => {
+export const IncludedItemsList = ({ product }) => {
+
     return (
         <StyledList>
-            {products.map(product => {
+            {product?.includes.map(item => {
+                
                 return (
-                    <StyledListItemContainer key={product.id}>
-                        <StyledListItemQuantity>{product.includes[0].quantity}x</StyledListItemQuantity>
-                        <StyledListItem>{product.includes[0].item}</StyledListItem>
+                    <StyledListItemContainer key={item._id}>
+                        <StyledListItemQuantity>{item.quantity}x</StyledListItemQuantity>
+                        <StyledListItem>{item.item}</StyledListItem>
                     </StyledListItemContainer>
                 )
             })}
