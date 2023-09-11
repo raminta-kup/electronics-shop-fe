@@ -1,21 +1,41 @@
-import { styled } from "styled-components"
-import { Paragraph } from "./Paragraph"
-import { StyledImageContainer, StyledProductImage, StyledProductInfoContainer, StyledNewProductHeadline, StyledProductItemContainer, StyledProductName } from "./ProductItem"
-import { Wrapper } from "./Wrapper"
-import { Button } from "./buttons/Button"
-import { QuantityControl } from "./buttons/QuantityControl"
-import { SummarySum } from "./checkout/BasketProductSummary"
-import { devices } from "../ScreenSizes/screenSizes"
-import { IncludedItemsList } from "./IncludedItemsList"
-import { ProductDisplayGallery } from "./ProductDisplayGallery"
-import { ProductCategoryList } from "./ProductCategoryList"
-import { AudiophileExperience } from "./AudiophileExperience"
-import { ProductSuggestions } from "./ProductSuggestions"
+import { styled } from "styled-components";
+import { Paragraph } from "./Paragraph";
+import { StyledImageContainer, StyledProductImage, StyledProductInfoContainer, StyledNewProductHeadline, StyledProductItemContainer, StyledProductName } from "./ProductItem";
+import { Wrapper } from "./Wrapper";
+import { Button } from "./buttons/Button";
+import { QuantityControl } from "./buttons/QuantityControl";
+import { SummarySum } from "./checkout/BasketProductSummary";
+import { devices } from "../ScreenSizes/screenSizes";
+import { IncludedItemsList } from "./IncludedItemsList";
+import { ProductDisplayGallery } from "./ProductDisplayGallery";
+import { ProductCategoryList } from "./ProductCategoryList";
+import { AudiophileExperience } from "./AudiophileExperience";
+import { ProductSuggestions } from "./ProductSuggestions";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-export const ProductDisplay = ({ isNew, onClick }) => {
+export const ProductDisplay = () => {
+    const [product, setProduct] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const { slug } = useParams();
 
     const handleAddToCart = () => {
 
+    }
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/products/${slug}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setProduct(data);
+                setIsLoading(false);
+            })
+    }, [slug]);
+
+    if (isLoading) {
+        return (
+            <div>Loading...</div>
+        )
     }
 
     return (
@@ -23,22 +43,21 @@ export const ProductDisplay = ({ isNew, onClick }) => {
             <ProductDisplayContainer>
                 <ProductContainer>
                     <ImgContainer>
-                        <StyledProductImage />
+                        <StyledProductImage src={product?.image.mobile} />
                     </ImgContainer>
                     <ProductInfoContainer>
-                        {isNew && (<StyledNewProductHeadline>
+                        {product?.new && (<StyledNewProductHeadline>
                             new product
                         </StyledNewProductHeadline>)}
                         <ProductTitle>
-                            XX99 Mark II
-                            Headphones
+                            {product?.name}
                         </ProductTitle>
                         <Paragraph
-                            text="The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound."
+                            text={product?.description}
                             textColor="#979797"
                             textAlign="left"
                         />
-                        <SummarySum>$ 4,500</SummarySum>
+                        <SummarySum>$ {product?.price}</SummarySum>
                         <AddToCartContainer>
                             <QuantityControl />
                             <Button
@@ -56,20 +75,18 @@ export const ProductDisplay = ({ isNew, onClick }) => {
                     <StyledFeaturesContainer>
                         <StyledHeading>features</StyledHeading>
                         <Paragraph
-                            text="Connect via Bluetooth or nearly any wired source. This speaker features optical, digital coaxial, USB Type-B, stereo RCA, and stereo XLR inputs, allowing you to have up to five wired source devices connected for easy switching. Improved bluetooth technology offers near lossless audio quality at up to 328ft (100m).
-
-                    Discover clear, more natural sounding highs than the competition with ZX9’s signature planar diaphragm tweeter. Equally important is its powerful room-shaking bass courtesy of a 6.5” aluminum alloy bass unit. You’ll be able to enjoy equal sound quality whether in a large room or small den. Furthermore, you will experience new sensations from old songs since it can respond to even the subtle waveforms."
+                            text={product?.features}
                             textColor="#979797"
                             textAlign="left"
                         />
                     </StyledFeaturesContainer>
                     <StyledInTheBoxContainer>
                         <StyledHeading>in the box</StyledHeading>
-                        <IncludedItemsList />
+                        <IncludedItemsList product={product} />
                     </StyledInTheBoxContainer>
                 </StyledFeaturesAndIncludedContainer>
-                <ProductDisplayGallery />
-                <ProductSuggestions />
+                <ProductDisplayGallery product={product} />
+                <ProductSuggestions product={product} />
                 <ProductCategoryList />
                 <AudiophileExperience />
             </ProductDisplayContainer>
