@@ -1,26 +1,26 @@
 import { styled } from "styled-components"
 import { Button } from "./buttons/Button"
 import { devices } from "../ScreenSizes/screenSizes"
+import { Link, useNavigate } from "react-router-dom"
 
-export const SuggestedProductCard = () => {
-
-    const handleOpenProduct = () => {
-
-    }
-
+export const SuggestedProductCard = ({ product }) => {
 
     return (
-        <SuggestedProductCardContainer>
-            <SuggestedProductImg src="https://audiophile-ecommerce-mbart13.vercel.app/images/shared/desktop/image-xx99-mark-one-headphones.jpg" />
-            <SuggestedProductTitle>XX99 MARK I</SuggestedProductTitle>
-            <Button 
-            text="see product"
-            borderColor="transparent"
-            backgroundColor="#D87D4A"
-            hoverBackground="#FBAF85"
-            textColor="#FFF"
-            onClick={handleOpenProduct}
-            />
+        <SuggestedProductCardContainer key={product?.id}>
+            <SuggestedProductImg src={product?.image.mobile} />
+            <SuggestedProductTitle>{product?.name}</SuggestedProductTitle>
+            <Link
+                to={`/${product?.category}/${product?.slug}`}
+                target="_top"
+            >
+                <Button
+                    text="see product"
+                    borderColor="transparent"
+                    backgroundColor="#D87D4A"
+                    hoverBackground="#FBAF85"
+                    textColor="#FFF"
+                />
+            </Link>
         </SuggestedProductCardContainer>
     )
 }
@@ -30,6 +30,9 @@ const SuggestedProductCardContainer = styled.div`
     flex-direction: column;
     gap: 32px;
     align-items: center;
+    @media ${devices.tablet} {
+        width: 100%;
+    }
 `
 
 const SuggestedProductImg = styled.img`
