@@ -22,47 +22,63 @@ export const Header = () => {
     }
 
     return (
-        <StyledHeaderContainer>
-            <StyledHamburgerBtn
-                onClick={handleOpenMenu}
-            >
-                <Hamburger />
-            </StyledHamburgerBtn>
-            <StyledLogoContainer>
-                <Link to="/">
-                    <img src={logo} />
-                </Link>
-            </StyledLogoContainer>
-            <NavList
-                display="none"
-                gap="40px"
-            />
-            <ShoppingCartBtn
-                onClick={handleOpenCart}
-            >
-                <img src={shoppingCart} />
-            </ShoppingCartBtn>
-            <Cart
-                open={isOpen}
-                setIsOpen={(val) => setIsOpen(val)}
-            />
-            <Menu
-                open={menuOpen}
-                setMenuOpen={(val) => setMenuOpen(val)}
-            />
-        </StyledHeaderContainer>
+        <HeaderWrapper>
+            <StyledHeaderContainer>
+                <StyledHamburgerBtn
+                    onClick={handleOpenMenu}
+                >
+                    <Hamburger />
+                </StyledHamburgerBtn>
+                <StyledLogoContainer>
+                    <Link to="/">
+                        <img src={logo} />
+                    </Link>
+                </StyledLogoContainer>
+                <NavList
+                    display="none"
+                    gap="40px"
+                />
+                <ShoppingCartBtn
+                    onClick={handleOpenCart}
+                >
+                    <img src={shoppingCart} />
+                </ShoppingCartBtn>
+                <Cart
+                    open={isOpen}
+                    setIsOpen={(val) => setIsOpen(val)}
+                />
+                <Menu
+                    open={menuOpen}
+                    setMenuOpen={(val) => setMenuOpen(val)}
+                />
+            </StyledHeaderContainer>
+        </HeaderWrapper>
     )
 }
 
-const StyledHeaderContainer = styled.header`
+const HeaderWrapper = styled.div`
     background-color: #191919;
-    border-bottom: 1px solid #979797;
-    display: flex;
-    justify-content: space-around;
-    padding: 30px;
-    align-items: center;  
     position: relative;
     z-index: 2000;
+    @media ${devices.laptop} {
+        display: flex;
+        justify-content: center;
+    }
+
+`
+
+const StyledHeaderContainer = styled.header`
+    display: flex;
+    border-bottom: 1px solid #303030;
+    justify-content: space-around;
+    padding: 30px;
+    @media ${devices.laptop} {
+        padding: 30px 0;
+        width: 70%;
+    }
+    @media ${devices.laptopL} {
+        width: 60%;
+    }
 `
 const ShoppingCartBtn = styled.button`
     background-color: transparent;
