@@ -20,11 +20,11 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/headphones" element={<ProductPage productCategory="headphones" />} />
-        <Route path="/headphones/:id" element={"" } />
+        <Route path="/headphones/:slug" element={<ProductDisplay />} />
         <Route path="/earphones" element={<ProductPage productCategory="earphones" />} />
-        <Route path="/earphones/:id" element={"" } />
+        <Route path="/earphones/:slug" element={<ProductDisplay />} />
         <Route path="/speakers" element={<ProductPage productCategory="speakers" />} />
-        <Route path="/speakers/:id" element={ ""} />
+        <Route path="/speakers/:slug" element={<ProductDisplay />} />
       </Routes>
       <Footer />
     </>
