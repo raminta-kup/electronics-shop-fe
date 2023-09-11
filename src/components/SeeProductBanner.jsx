@@ -2,12 +2,24 @@ import { styled } from "styled-components"
 import { SeeProductTitleBtn } from "./SeeProduct"
 import speakersOnTable from "../assets/shared/desktop/Bitmap.png"
 import { devices } from "../ScreenSizes/screenSizes"
+import { useEffect, useState } from "react"
 
-export const SeeProductBanner = ({text}) => {
+export const SeeProductBanner = () => {
+    const [product, setProduct] = useState(null);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/speakers/zx7-speaker`)
+            .then((res) => res.json())
+            .then((data) => {
+                setProduct(data);
+            })
+    }, []);
+
     return (
-        <ProductBannerContainer>
+        <ProductBannerContainer key={[product?.slug]} >
             <SeeProductTitleBtn
-                text={text}
+            text={product?.name}
+            to={`${product?.category}/${product?.slug}`}
             />
 
         </ProductBannerContainer>
