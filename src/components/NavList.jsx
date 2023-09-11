@@ -7,16 +7,36 @@ export const NavList = ({ flexDirection, gap, display }) => {
         <StyledNav $display={display}>
             <StyledNavList $flexDirection={flexDirection} $gap={gap}>
                 <li>
-                    <StyledListItem to="/">home</StyledListItem>
+                    <StyledListItem
+                        to="/"
+                        target="_top"
+                    >
+                        home
+                    </StyledListItem>
                 </li>
                 <li>
-                    <StyledListItem to="/headphones">headphones</StyledListItem>
+                    <StyledListItem
+                        to="/headphones"
+                        target="_top"
+                    >
+                        headphones
+                    </StyledListItem>
                 </li>
                 <li>
-                    <StyledListItem to="/speakers">speakers</StyledListItem>
+                    <StyledListItem
+                        to="/speakers"
+                        target="_top"
+                    >
+                        speakers
+                    </StyledListItem>
                 </li>
                 <li>
-                    <StyledListItem to="/earphones">earphones</StyledListItem>
+                    <StyledListItem
+                        to="/earphones"
+                        target="_top"
+                    >
+                        earphones
+                    </StyledListItem>
                 </li>
             </StyledNavList>
         </StyledNav>
