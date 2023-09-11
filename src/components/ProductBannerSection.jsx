@@ -4,19 +4,29 @@ import { SeeProductBanner } from "./SeeProductBanner"
 import { SeeProductTitleBtn } from "./SeeProduct"
 import yx1Earphones from "../assets/product-yx1-earphones/desktop/image-gallery-2.jpg"
 import { devices } from "../ScreenSizes/screenSizes"
+import { useEffect, useState } from "react"
 
 export const ProductBannerSection = () => {
+    const [product, setProduct] = useState(null);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/earphones/yx1-earphones`)
+            .then((res) => res.json())
+            .then((data) => {
+                setProduct(data);
+            })
+    }, [])
+
     return (
         <BannerSection>
             <SeeSpeaker />
-            <SeeProductBanner
-                text="zx7 speaker"
-            />
+            <SeeProductBanner />
             <BannerContainer>
                 <StyledImg src={yx1Earphones} />
                 <SeeProductTitleBtnContainer>
                     <SeeProductTitleBtn
-                        text="yx1 earphones"
+                        text={product?.name}
+                        to={`/${product?.category}/${product?.slug}`}
                     />
                 </SeeProductTitleBtnContainer>
             </BannerContainer>

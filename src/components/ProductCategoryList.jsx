@@ -5,7 +5,7 @@ import { devices } from "../ScreenSizes/screenSizes";
 
 export const ProductCategoryList = () => {
     const mappedProductCategories = products.map(product => product.category);
-    // const uniqueCategories = [...vnew Set(mappedProductCategories)]; 
+    // const uniqueCategories = [...new Set(mappedProductCategories)]; 
 
     return (
         <StyledProductCategoryContainer>
@@ -22,7 +22,7 @@ export const ProductCategoryList = () => {
             <ProductCategory
                 to="/earphones"
                 category="earphones"
-                categoryImage="https://www.audiophile.ascends.fr/wp-content/uploads/2021/11/image-category-thumbnail-earphones.png" 
+                categoryImage="https://audiophile-ecommerce-mbart13.vercel.app/images/shared/desktop/image-earphones.png" 
                 />
             {/* {uniqueCategories.map(category => <ProductCategory category={category} />)} */}
         </StyledProductCategoryContainer>
