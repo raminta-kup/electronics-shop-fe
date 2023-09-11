@@ -2,19 +2,33 @@ import { styled } from "styled-components";
 import { Paragraph } from "./Paragraph"
 import { Button } from "./buttons/Button"
 import { devices } from "../ScreenSizes/screenSizes";
-import { useState } from "react";
-import { OrderConfirmationModal } from "./checkout/OrderConfirmationModal";
+import { useEffect, useState } from "react";
+import { Wrapper } from "./Wrapper";
+import { Link } from "react-router-dom";
 
-export const NewProductBanner = ({ product, onClick }) => {
+export const NewProductBanner = () => {
+    const [product, setProduct] = useState(null);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/products/xx99-mark-two-headphones`)
+            .then((res) => res.json())
+            .then((data) => {
+                setProduct(data);
+            })
+    }, []);
 
     return (
-        <NewProductBannerWrapper>
+        <Wrapper
+        backgroundColor="#191919"
+        wrapperBackgroundColor="#191919"
+        margin="0"
+        >
             <NewProductBannerContainer>
                 <BannerInfoContainer>
                     <NewProductInfoContainer>
                         <StyledNewProductHeadline>new product</StyledNewProductHeadline>
                         <StyledProductTitle>
-                            XX99 Mark II Headphones
+                            {product?.name}
                         </StyledProductTitle>
                         <Paragraph
                             fontWeight="200"
@@ -22,28 +36,24 @@ export const NewProductBanner = ({ product, onClick }) => {
                             text="Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast."
                         />
                     </NewProductInfoContainer>
+                    <Link
+                    to={`/${product?.category}/${product?.slug}`}
+                    target="_top"
+                    >
                     <Button
-                        onClick={onClick}
                         backgroundColor="#D87D4A"
                         textColor="white"
                         borderColor="transparent"
                         text="see product"
                         hoverBackground="#FBAF85"
                     />
+                    </Link>
                 </BannerInfoContainer>
-                <StyledNewProductImg src="https://images.ctfassets.net/febpdaznqgsb/ZL2XSH6jhsCoXDC3uiTE2/b5b0f9876afd43a3fa488b22a032925b/image-product-test2-removebg.png" />
+                <StyledNewProductImg src={product?.image.tablet} />
             </NewProductBannerContainer>
-        </NewProductBannerWrapper>
+        </Wrapper>
     )
 }
-
-const NewProductBannerWrapper = styled.div`
-    width: 100%;
-    background-color: #0E0E0E;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 120px;
-`
 
 const NewProductBannerContainer = styled.div`
     padding: 80px 16px;
@@ -59,7 +69,6 @@ const NewProductBannerContainer = styled.div`
     }
     @media ${devices.laptop} {
         flex-direction: row;
-        width: 70%;
         overflow: visible;
     }
 `
