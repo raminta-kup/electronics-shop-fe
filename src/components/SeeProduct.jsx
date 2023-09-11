@@ -1,20 +1,25 @@
 import { styled } from "styled-components"
 import { Button } from "./buttons/Button"
+import { Link } from "react-router-dom"
 
-export const SeeProductTitleBtn = ({text}) => {
-    const handleOpen = () => {
-        //navigate to product
-    }
+export const SeeProductTitleBtn = ({ text, to }) => {
+
+
+
     return (
         <ProductTitleBtnContainer>
             <ProductTitle>{text}</ProductTitle>
-            <Button
-                text="see product"
-                backgroundColor="transparent"
-                textColor="#000"
-                fontWeight="700"
-                onClick={handleOpen}
-            />
+            <Link
+            to={to}
+            target="_top"
+            >
+                <Button
+                    text="see product"
+                    backgroundColor="transparent"
+                    textColor="#000"
+                    fontWeight="700"
+                />
+            </Link>
         </ProductTitleBtnContainer>
     )
 }
