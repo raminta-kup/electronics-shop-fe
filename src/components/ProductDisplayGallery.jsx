@@ -1,14 +1,15 @@
 import { styled } from "styled-components"
 import { devices } from "../ScreenSizes/screenSizes"
 
-export const ProductDisplayGallery = () => {
+export const ProductDisplayGallery = ({ product }) => {
+    console.log(product)
     return (
         <GalleryContainer>
             <GalleryPhotoGroup>
-                <GalleryImgRectangle src="https://audiophile-ecommerce-mbart13.vercel.app/images/product-zx9-speaker/desktop/image-gallery-1.jpg"></GalleryImgRectangle>
-                <GalleryImgRectangle src="https://audiophile-ecommerce-mbart13.vercel.app/images/product-zx9-speaker/desktop/image-gallery-2.jpg"></GalleryImgRectangle>
+                <GalleryImgRectangle src={product?.gallery.first.mobile}></GalleryImgRectangle>
+                <GalleryImgRectangle src={product?.gallery.second.mobile}></GalleryImgRectangle>
             </GalleryPhotoGroup>
-            <GalleryImgSquare src="https://audiophile-ecommerce-mbart13.vercel.app/images/product-zx9-speaker/desktop/image-gallery-3.jpg"></GalleryImgSquare>
+            <GalleryImgSquare src={product?.gallery.third.mobile}></GalleryImgSquare>
         </GalleryContainer>
     )
 }
@@ -38,10 +39,16 @@ const GalleryImgRectangle = styled.img`
     aspect-ratio: 2 / 1;
     width: 100%;
     border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    
 `
 const GalleryImgSquare = styled.img`
     aspect-ratio: 1 / 1;
+    object-fit: cover;
     width: 100%;
+    height: 100%;
     border-radius: 8px;
     @media ${devices.tablet} {
         width: 50%;
