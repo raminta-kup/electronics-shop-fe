@@ -2,23 +2,40 @@ import { styled } from "styled-components"
 import { StyledProductTitle } from "./NewProductBanner"
 import { Button } from "./buttons/Button"
 import { devices } from "../ScreenSizes/screenSizes"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 export const SeeSpeaker = () => {
+    const [product, setProduct] = useState(null);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/speakers/zx9-speaker`)
+            .then((res) => res.json())
+            .then((data) => {
+                setProduct(data);
+            })
+    }, []);
+
     return (
-        <SeeSpeakerContainer>
+        <SeeSpeakerContainer key={product?.slug} >
             <SpeakerImgContainer>
                 <SpeakerImg src="https://audiophile-e.netlify.app/images/shared/desktop/image-speakers.png" />
             </SpeakerImgContainer>
             <ProductInfoContainer>
-                <StyledProductTitle>ZX9 SPEAKER</StyledProductTitle>
+                <StyledProductTitle>{product?.name}</StyledProductTitle>
                 <ProductPar>Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.</ProductPar>
-                <Button
-                    backgroundColor="#000000"
-                    textColor="#FFF"
-                    text="see product"
-                    borderColor="transparent"
-                    hoverBackground="#4C4C4C"
-                />
+                <Link 
+                to={`/${product?.category}/${product?.slug}`}
+                target="_top"
+                >
+                    <Button
+                        backgroundColor="#000000"
+                        textColor="#FFF"
+                        text="see product"
+                        borderColor="transparent"
+                        hoverBackground="#4C4C4C"
+                    />
+                </Link>
             </ProductInfoContainer>
         </SeeSpeakerContainer>
     )
