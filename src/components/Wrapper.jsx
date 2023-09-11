@@ -26,6 +26,9 @@ const WrapperWidth = styled.div`
     @media ${devices.laptop} {
         width: 70%;
     }
+    @media ${devices.laptopL} {
+        width: 60%;
+    }
 `
 const WrapperAlignCenter = styled.div`
     display: flex;
