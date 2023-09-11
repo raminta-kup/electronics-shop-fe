@@ -2,35 +2,49 @@ import { styled } from "styled-components";
 import { Paragraph } from "./Paragraph"
 import { Button } from "./buttons/Button";
 import { devices } from "../ScreenSizes/screenSizes";
+import { Link, useNavigate } from "react-router-dom";
 
-export const ProductItem = ({ product, onClick, flexDirection }) => {
-    const { id, name, image, new: isNew, description, price } = product;
+export const ProductItem = ({ product, flexDirection }) => {
+    const navigate = useNavigate();
+    const { id, name, image, new: isNew, description, category, slug } = product;
 
     return (
-        <StyledProductItemContainer flexDirection={flexDirection}>
+        <StyledProductItemContainer
+            key={slug}
+            flexDirection={flexDirection}
+        >
             <StyledImageContainer>
-                <StyledProductImage src={image.mobile} />
+                <StyledProductImage
+                    src={image.mobile}
+                />
             </StyledImageContainer>
             <StyledProductInfoContainer>
-                {isNew && (<StyledNewProductHeadline>
-                    new product
-                </StyledNewProductHeadline>)
+                {isNew &&
+                    (<StyledNewProductHeadline>
+                        new product
+                    </StyledNewProductHeadline>)
                 }
-                <StyledProductName>{name}</StyledProductName>
+                <StyledProductName>
+                    {name}
+                </StyledProductName>
                 <Paragraph
                     text={description}
                     textColor="#979797"
                     textAlign="center"
                     tabletTextAlign="center"
                 />
-                <Button
-                    onClick={onClick}
-                    backgroundColor="#D87D4A"
-                    textColor="white"
-                    borderColor="transparent"
-                    text="see product"
-                    hoverBackground="#FBAF85"
-                />
+                <Link
+                to={`/${category}/${slug}`}
+                target="_top"
+                >
+                    <Button
+                        backgroundColor="#D87D4A"
+                        textColor="white"
+                        borderColor="transparent"
+                        text="see product"
+                        hoverBackground="#FBAF85"
+                    />
+                </Link>
             </StyledProductInfoContainer>
         </StyledProductItemContainer>
     )
