@@ -3,13 +3,13 @@ import confirmationIcon from "../../assets/checkout/icon-order-confirmation.svg"
 import { Paragraph } from "../Paragraph"
 import { BasketProduct } from "./BasketProduct"
 import { devices } from "../../ScreenSizes/screenSizes"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import ReactDOM from "react-dom"
 import { useContext, useEffect } from "react"
 import { Overlay } from "../Overlay"
 import CartContext from "../../CartContext"
 
-export const OrderConfirmationModal = ({ open, onClose }) => {
+export const OrderConfirmationModal = ({ open, onClose, confirmationCart }) => {
     const { cart, calculateGrandTotal, setCart } = useContext(CartContext);
 
     useEffect(() => {
@@ -19,6 +19,12 @@ export const OrderConfirmationModal = ({ open, onClose }) => {
             document.body.style.overflow = "auto";
         }
     }, [open])
+
+    const handleOrderConfirmation = (e) => {
+        e.preventDefault();
+        onClose();
+        setCart([]);
+    }
 
     if (!open) return null
 
@@ -36,30 +42,29 @@ export const OrderConfirmationModal = ({ open, onClose }) => {
                 <ModalItemsOrderedContainer>
                     <Container>
                         <div>
-                            <BasketProduct quantity="1" product={cart[0].product} />
+                            <BasketProduct
+                                quantity={confirmationCart[0].quantity}
+                                product={confirmationCart[0].product}
+                            />
                         </div>
-                        {cart.length > 1 && (
+                        {confirmationCart.length > 1 && (
                             <>
                                 <ModalLine></ModalLine>
                                 <MoreItemsContainer>
-                                    <MoreItemsSpan>and {cart.reduce((sum, item) => sum + item.quantity, 0) - 1} other item (s)</MoreItemsSpan>
+                                    <MoreItemsSpan>and {confirmationCart.reduce((sum, item) => sum + item.quantity, 0) - confirmationCart[0].quantity} other item (s)</MoreItemsSpan>
                                 </MoreItemsContainer>
                             </>
                         )}
                     </Container>
                     <GrandTotalContainer>
                         <GrandTotalSpan>grand total</GrandTotalSpan>
-                        <ConfirmationSum>$ {calculateGrandTotal(cart)}</ConfirmationSum>
+                        <ConfirmationSum>$ {calculateGrandTotal(confirmationCart)}</ConfirmationSum>
                     </GrandTotalContainer>
                 </ModalItemsOrderedContainer>
                 <StyledLink
-                    // to="#"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        onClose();
-                        setCart([]);
-                        localStorage.removeItem("cart");
-                    }}
+                    to="/"
+                    target="_top"
+                    onClick={(e) => handleOrderConfirmation(e)}
                 >
                     back to home
                 </StyledLink>
@@ -86,7 +91,7 @@ const ConfirmationModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
-    max-width: 540px;
+    max-width: 500px;
     position: fixed;
     top: 50%;
     left: 50%;
