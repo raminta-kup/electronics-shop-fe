@@ -1,43 +1,50 @@
-import { useState } from "react"
 import { styled } from "styled-components"
 
-export const QuantityControl = () => {
-    const [quantity, setQuantity] = useState(1);
+export const QuantityControl = ({ quantity, setQuantity, location, handleQuantityChange }) => {
 
     const handleQuantityUp = () => {
-        setQuantity(quantity + 1)
+        if (location === "productPage") {
+            setQuantity(quantity + 1)
+        } else {
+            handleQuantityChange("up")
+        }
     }
 
     const handleQuantityDown = () => {
-        if (quantity > 0) {
+
+        if (location === "productPage" && quantity > 1) {
             setQuantity(quantity - 1);
+        } else if (location !== "productPage") {
+            handleQuantityChange("down");
         }
     }
 
     return (
-        <StyledQuantityContainer>
-            <StyledQuantityBtn onClick={handleQuantityDown}>-</StyledQuantityBtn>
-            <StyledQuantityNum>{quantity}</StyledQuantityNum>
-            <StyledQuantityBtn onClick={handleQuantityUp}>+</StyledQuantityBtn>
-        </StyledQuantityContainer>
+        (
+            <StyledQuantityContainer>
+                <StyledQuantityBtn onClick={() => handleQuantityDown()}>-</StyledQuantityBtn>
+                <StyledQuantityNum>{quantity}</StyledQuantityNum>
+                <StyledQuantityBtn onClick={() => handleQuantityUp()}>+</StyledQuantityBtn>
+            </StyledQuantityContainer>
+        )
     )
 }
 
-const StyledQuantityContainer = styled.div`
+export const StyledQuantityContainer = styled.div`
     display: flex;
     align-items: center;
     background-color: #F1F1F1;
 `
 
-const StyledQuantityNum = styled.span`
+export const StyledQuantityNum = styled.span`
     font-weight: 700;
 `
 
-const StyledQuantityBtn = styled.button`
+export const StyledQuantityBtn = styled.button`
     border: transparent;
     color: #979797;
     padding: 0;
     cursor: pointer;
-    padding: 16px 24px;
+    padding: 12px 20px;
     font-weight: 500;
 `
