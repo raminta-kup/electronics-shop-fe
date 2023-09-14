@@ -1,25 +1,27 @@
 import { styled } from "styled-components"
 import { BasketProduct } from "./BasketProduct"
 import { Button } from "../buttons/Button"
-import { OrderConfirmationModal } from "./OrderConfirmationModal";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { devices } from "../../ScreenSizes/screenSizes";
-
-
+import CartContext from "../../CartContext";
 
 export const BasketProductSummary = () => {
+    const { cart, calculateTotal, calculateGrandTotal, calculateTax } = useContext(CartContext);
 
     return (
         <BasketSummaryContainer>
             <SummaryTitle>summary</SummaryTitle>
             <BasketProductsContainer>
-                <BasketProduct />
-                <BasketProduct />
+                {cart.map((item) => {
+                    return (
+                        <BasketProduct quantity={item.quantity} product={item.product} />
+                    )
+                })}
             </BasketProductsContainer>
             <PriceCalculationsContainer>
                 <CalculationContainer>
                     <SummarySpan>total</SummarySpan>
-                    <SummarySum>$ 5,396</SummarySum>
+                    <SummarySum>$ {calculateTotal(cart)}</SummarySum>
                 </CalculationContainer>
                 <CalculationContainer>
                     <SummarySpan>shipping</SummarySpan>
@@ -27,12 +29,12 @@ export const BasketProductSummary = () => {
                 </CalculationContainer>
                 <CalculationContainer>
                     <SummarySpan>vat (included)</SummarySpan>
-                    <SummarySum>$ 1,079</SummarySum>
+                    <SummarySum>$ {calculateTax(cart)}</SummarySum>
                 </CalculationContainer>
             </PriceCalculationsContainer>
             <CalculationContainer>
                 <SummarySpan>grand total</SummarySpan>
-                <SummaryGrandTotal>$ 5,446</SummaryGrandTotal>
+                <SummaryGrandTotal>$ {calculateGrandTotal(cart)}</SummaryGrandTotal>
             </CalculationContainer>
             <Button
                 text="continue & pay"
