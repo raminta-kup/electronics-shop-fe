@@ -5,10 +5,12 @@ import { BasketProduct } from "./BasketProduct"
 import { devices } from "../../ScreenSizes/screenSizes"
 import { Link } from "react-router-dom"
 import ReactDOM from "react-dom"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { Overlay } from "../Overlay"
+import CartContext from "../../CartContext"
 
 export const OrderConfirmationModal = ({ open, onClose }) => {
+    const { cart, calculateGrandTotal, setCart } = useContext(CartContext);
 
     useEffect(() => {
         if (open) {
@@ -17,7 +19,6 @@ export const OrderConfirmationModal = ({ open, onClose }) => {
             document.body.style.overflow = "auto";
         }
     }, [open])
-
 
     if (!open) return null
 
@@ -35,21 +36,30 @@ export const OrderConfirmationModal = ({ open, onClose }) => {
                 <ModalItemsOrderedContainer>
                     <Container>
                         <div>
-                            <BasketProduct />
+                            <BasketProduct quantity="1" product={cart[0].product} />
                         </div>
-                        <ModalLine></ModalLine>
-                        <MoreItemsContainer>
-                            <MoreItemsSpan>and 2 other item (s)</MoreItemsSpan>
-                        </MoreItemsContainer>
+                        {cart.length > 1 && (
+                            <>
+                                <ModalLine></ModalLine>
+                                <MoreItemsContainer>
+                                    <MoreItemsSpan>and {cart.reduce((sum, item) => sum + item.quantity, 0) - 1} other item (s)</MoreItemsSpan>
+                                </MoreItemsContainer>
+                            </>
+                        )}
                     </Container>
                     <GrandTotalContainer>
                         <GrandTotalSpan>grand total</GrandTotalSpan>
-                        <ConfirmationSum>$ 5,446</ConfirmationSum>
+                        <ConfirmationSum>$ {calculateGrandTotal(cart)}</ConfirmationSum>
                     </GrandTotalContainer>
                 </ModalItemsOrderedContainer>
-                <StyledLink 
-                // to="#"
-                onClick={(e) => { e.preventDefault(); onClose()}}
+                <StyledLink
+                    // to="#"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onClose();
+                        setCart([]);
+                        localStorage.removeItem("cart");
+                    }}
                 >
                     back to home
                 </StyledLink>
