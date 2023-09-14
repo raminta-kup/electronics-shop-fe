@@ -62,11 +62,16 @@ export const Cart = ({ open, setIsOpen }) => {
                 <CalculationsContainer>
                     <SummarySpan>total</SummarySpan>
                     <SummarySum>
-                        $ {calculateTotal(cart)}
+                        $ {cart.length > 0 ? (
+                            `${calculateTotal(cart)}`
+                        ) : 0}
                     </SummarySum>
                 </CalculationsContainer>
-                <CheckoutLink to="/checkout" onClick={handleCloseModal}>
-                    checkout
+                <CheckoutLink
+                    to={cart.length > 0 ? "/checkout" : null}
+                    onClick={handleCloseModal}
+                >
+                    {cart.length > 0 ? "checkout" : "close"}
                 </CheckoutLink>
             </CartContainer>
         </Overlay >,
