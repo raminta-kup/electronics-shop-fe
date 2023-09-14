@@ -7,14 +7,17 @@ import { GoBackLink } from "../../components/buttons/GoBackLink";
 import { Wrapper } from "../Wrapper";
 import { FormInputGroup } from "./FormInputGroup";
 import { devices } from "../../ScreenSizes/screenSizes";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { OrderConfirmationModal } from "./OrderConfirmationModal";
 import { useNavigate } from "react-router-dom";
+import CartContext from "../../CartContext";
 
 
 export const Checkout = () => {
+    const { cart } = useContext(CartContext);
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [confirmationCart, setConfirmationCart] = useState([]);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -35,25 +38,20 @@ export const Checkout = () => {
             ...formData,
             [e.target.name]: e.target.value
         })
-
-        if (e.target.value === "on") {
-            console.log(e.target.id);
-        }
-
-        // copied form data and then assigned the names to values ?
     }
 
     const handleClose = () => {
         setIsOpen(false);
+        document.body.style.overflow = "auto";
         navigate("/");
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const cartCopy = [...cart];
         setIsOpen(true);
-        
-        
-
+        setConfirmationCart(cartCopy);
+        localStorage.removeItem("cart");
     }
 
     return (
@@ -162,7 +160,6 @@ export const Checkout = () => {
                                         id="cashOnDelivery"
                                         onChange={handleOnChange}
                                         isChecked={isChecked}
-
                                     />
                                 </FormInputGroup>
                                 <FormInputGroup>
@@ -191,7 +188,7 @@ export const Checkout = () => {
                     </StyledCheckoutForm>
                 </FormContainer>
             </CheckoutWrapper>
-            <OrderConfirmationModal open={isOpen} onClose={handleClose} />
+            <OrderConfirmationModal open={isOpen} onClose={handleClose} confirmationCart={confirmationCart} />
         </Wrapper>
     )
 }
