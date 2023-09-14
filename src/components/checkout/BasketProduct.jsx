@@ -1,17 +1,31 @@
 import { styled } from "styled-components"
-import testProduct from "../../assets/product-xx99-mark-two-headphones/mobile/image-product.jpg"
+import { useContext } from "react"
+import CartContext from "../../CartContext"
+import { QuantityControl } from "../buttons/QuantityControl"
+import { useLocation } from "react-router-dom"
 
-export const BasketProduct = () => {
-    // const {title, price, quantity} = product;
+export const BasketProduct = ({ product, quantity }) => {
+    const location = useLocation();
+    const isCheckoutPage = location.pathname === "/checkout";
+    const { handleQuantityChange } = useContext(CartContext);
+
+    const onQuantityChange = (type) => {
+        handleQuantityChange(product, type)
+    }
+
     return (
         <BasketProductContainer>
-            <BasketProductImg src={testProduct} />
+            <BasketProductImg src={product?.image.mobile} />
             <BasketProductDetailsContainer>
                 <BasketProductTitleAndQuantity>
-                    <BasketProductTitle>xx99 mk ii</BasketProductTitle>
-                    <BasketQuantitySpan>x1</BasketQuantitySpan>
+                    <BasketProductTitle>{product?.name}</BasketProductTitle>
+                    {isCheckoutPage ? (
+                        <BasketQuantitySpan>x{quantity}</BasketQuantitySpan>
+                    ) : (
+                        <QuantityControl quantity={quantity} location="cart" handleQuantityChange={(val) => onQuantityChange(val)} />
+                    )}
                 </BasketProductTitleAndQuantity>
-                <BasketProductPrice>$ 2,999</BasketProductPrice>
+                <BasketProductPrice>$ {product?.price}</BasketProductPrice>
             </BasketProductDetailsContainer>
         </BasketProductContainer>
 
@@ -39,6 +53,7 @@ const BasketProductDetailsContainer = styled.div`
 const BasketProductTitleAndQuantity = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
 `
 const BasketProductPrice = styled.span`
     font-size: 15px;
