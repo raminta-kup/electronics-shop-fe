@@ -8,25 +8,28 @@ import { HomePage } from "./components/HomePage";
 import { PageNotFound } from "./components/PageNotFound";
 import { Routes, Route, } from "react-router-dom";
 import { ProductPage } from "./components/ProductPage";
+import CartContext, { CartProvider } from "./CartContext";
 
 function App() {
 
   return (
     <>
       <GlobalStyle />
-      <Header />
-      <Routes>
-        <Route path="*" element={<PageNotFound />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/headphones" element={<ProductPage productCategory="headphones" />} />
-        <Route path="/headphones/:slug" element={<ProductDisplay />} />
-        <Route path="/earphones" element={<ProductPage productCategory="earphones" />} />
-        <Route path="/earphones/:slug" element={<ProductDisplay />} />
-        <Route path="/speakers" element={<ProductPage productCategory="speakers" />} />
-        <Route path="/speakers/:slug" element={<ProductDisplay />} />
-      </Routes>
-      <Footer />
+      <CartProvider>
+        <Header />
+        <Routes>
+          <Route path="*" element={<PageNotFound />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/headphones" element={<ProductPage productCategory="headphones" />} />
+          <Route path="/headphones/:slug" element={<ProductDisplay />} />
+          <Route path="/earphones" element={<ProductPage productCategory="earphones" />} />
+          <Route path="/earphones/:slug" element={<ProductDisplay />} />
+          <Route path="/speakers" element={<ProductPage productCategory="speakers" />} />
+          <Route path="/speakers/:slug" element={<ProductDisplay />} />
+        </Routes>
+        <Footer />
+      </CartProvider>
     </>
   )
 }
