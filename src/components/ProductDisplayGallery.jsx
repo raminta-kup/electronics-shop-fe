@@ -2,7 +2,7 @@ import { styled } from "styled-components"
 import { devices } from "../ScreenSizes/screenSizes"
 
 export const ProductDisplayGallery = ({ product }) => {
-    console.log(product)
+
     return (
         <GalleryContainer>
             <GalleryPhotoGroup>

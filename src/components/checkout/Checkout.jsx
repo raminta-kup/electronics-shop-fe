@@ -1,22 +1,21 @@
-import { styled } from "styled-components"
-import { CheckoutSection } from "./CheckoutSection"
-import { FormInput } from "./FormInput"
-import { RadioInput } from "./RadioInput"
-import { BasketProductSummary } from "./BasketProductSummary"
-import { GoBackLink } from "../../components/buttons/GoBackLink"
-import { Wrapper } from "../Wrapper"
-import { FormInputGroup } from "./FormInputGroup"
-import { devices } from "../../ScreenSizes/screenSizes"
-import { useState } from "react"
-import { OrderConfirmationModal } from "./OrderConfirmationModal"
-import { useNavigate } from "react-router-dom"
+import { styled } from "styled-components";
+import { CheckoutSection } from "./CheckoutSection";
+import { FormInput } from "./FormInput";
+import { RadioInput } from "./RadioInput";
+import { BasketProductSummary } from "./BasketProductSummary";
+import { GoBackLink } from "../../components/buttons/GoBackLink";
+import { Wrapper } from "../Wrapper";
+import { FormInputGroup } from "./FormInputGroup";
+import { devices } from "../../ScreenSizes/screenSizes";
+import { useState } from "react";
+import { OrderConfirmationModal } from "./OrderConfirmationModal";
+import { useNavigate } from "react-router-dom";
 
 
 export const Checkout = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const navigate = useNavigate();
-    
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -32,21 +31,19 @@ export const Checkout = () => {
     })
 
     const handleOnChange = (e) => {
-
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         })
 
         if (e.target.value === "on") {
-            console.log(e.target.id)
+            console.log(e.target.id);
         }
 
         // copied form data and then assigned the names to values ?
     }
 
     const handleClose = () => {
-        console.log("handleclose")
         setIsOpen(false);
         navigate("/");
     }
@@ -54,7 +51,9 @@ export const Checkout = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsOpen(true);
-        // fetch post 
+        
+        
+
     }
 
     return (
@@ -65,7 +64,7 @@ export const Checkout = () => {
         >
             <CheckoutWrapper>
                 <GoBackLink
-                    to="/home"
+                    to="/"
                     text="Go back"
                 />
                 <FormContainer>

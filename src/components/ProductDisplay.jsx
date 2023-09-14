@@ -11,17 +11,16 @@ import { ProductDisplayGallery } from "./ProductDisplayGallery";
 import { ProductCategoryList } from "./ProductCategoryList";
 import { AudiophileExperience } from "./AudiophileExperience";
 import { ProductSuggestions } from "./ProductSuggestions";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import CartContext from "../CartContext";
 
 export const ProductDisplay = () => {
+    const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const { slug } = useParams();
-
-    const handleAddToCart = () => {
-
-    }
+    const { handleAddToCart } = useContext(CartContext);
 
     useEffect(() => {
         fetch(`http://localhost:3000/products/${slug}`)
@@ -37,6 +36,7 @@ export const ProductDisplay = () => {
             <div>Loading...</div>
         )
     }
+
 
     return (
         <Wrapper>
@@ -59,9 +59,9 @@ export const ProductDisplay = () => {
                         />
                         <SummarySum>$ {product?.price}</SummarySum>
                         <AddToCartContainer>
-                            <QuantityControl />
+                            <QuantityControl quantity={quantity} setQuantity={(val) => setQuantity(val)} location="productPage"/>
                             <Button
-                                onClick={handleAddToCart}
+                                onClick={() => handleAddToCart(product, quantity)}
                                 backgroundColor="#D87D4A"
                                 textColor="white"
                                 borderColor="transparent"
