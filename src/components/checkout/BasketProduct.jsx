@@ -3,6 +3,7 @@ import { useContext } from "react"
 import CartContext from "../../CartContext"
 import { QuantityControl } from "../buttons/QuantityControl"
 import { useLocation } from "react-router-dom"
+import { devices } from "../../ScreenSizes/screenSizes"
 
 export const BasketProduct = ({ product, quantity }) => {
     const location = useLocation();
@@ -14,30 +15,37 @@ export const BasketProduct = ({ product, quantity }) => {
     }
 
     return (
-        <BasketProductContainer>
-            <BasketProductImg src={product?.image.mobile} />
-            <BasketProductDetailsContainer>
+            <BasketProductContainer>
                 <BasketProductTitleAndQuantity>
-                    <BasketProductTitle>{product?.name}</BasketProductTitle>
+                    <BasketProductImg src={product?.image.mobile} />
+                    <BasketProductDetailsContainer>
+                        <BasketProductTitle>{product?.name}</BasketProductTitle>
+                        <BasketProductPrice>$ {product?.price}</BasketProductPrice>
+                    </BasketProductDetailsContainer>
+                </BasketProductTitleAndQuantity>
+                <div>
                     {isCheckoutPage ? (
                         <BasketQuantitySpan>x{quantity}</BasketQuantitySpan>
                     ) : (
                         <QuantityControl quantity={quantity} location="cart" handleQuantityChange={(val) => onQuantityChange(val)} />
                     )}
-                </BasketProductTitleAndQuantity>
-                <BasketProductPrice>$ {product?.price}</BasketProductPrice>
-            </BasketProductDetailsContainer>
-        </BasketProductContainer>
-
+                </div>
+            </BasketProductContainer>
     )
 }
 
 const BasketProductContainer = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
+    flex-direction: column;
+    justify-content: space-between;
+    @media ${devices.tablet} {
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+    }
 `
-
 const BasketProductImg = styled.img`
     border-radius: 8px;
     height: 64px;
@@ -52,7 +60,9 @@ const BasketProductDetailsContainer = styled.div`
 
 const BasketProductTitleAndQuantity = styled.div`
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 24px;
     align-items: center;
 `
 const BasketProductPrice = styled.span`
@@ -71,4 +81,5 @@ const BasketProductTitle = styled.h2`
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
+    line-height: 20px;
 `
