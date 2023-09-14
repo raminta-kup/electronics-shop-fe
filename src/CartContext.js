@@ -77,7 +77,6 @@ export const CartProvider = ({ children }) => {
         const tax = calculateTax(cart);
         const shippingFee = 50;
         const grandtotal = parseFloat(subtotal + shippingFee + tax).toFixed(2);
-        console.log(typeof grandtotal) // NOT A NUMBER
         return grandtotal;
     }
 

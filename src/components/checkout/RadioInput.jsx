@@ -16,6 +16,7 @@ export const RadioInput = ({ text, name, id, forName, heading, onChange, isCheck
                     $isChecked={isChecked}
                 >
                     <StyledInput
+                        required
                         type="radio"
                         name={name}
                         id={id}
