@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"
 import { useContext, useEffect } from "react"
 import { useLocation } from "react-router-dom";
 import CartContext from "../CartContext"
+import { Paragraph } from "./Paragraph"
 
 export const Cart = ({ open, setIsOpen }) => {
     const location = useLocation();
@@ -43,7 +44,7 @@ export const Cart = ({ open, setIsOpen }) => {
         <Overlay>
             <CartContainer>
                 <CartAndRemoveBtnContainer>
-                    <CartTitle>cart ({cart.length === 0 ? "0" : cart.reduce((sum, item) => sum + item.quantity, 0)})</CartTitle>
+                    <CartTitle>cart ({cart.length === 0 ? 0 : cart.reduce((sum, item) => sum + item.quantity, 0)})</CartTitle>
                     {cart.length > 0 && (
                         <RemoveBtn
                             onClick={handleRemoveAllProducts}
@@ -52,21 +53,28 @@ export const Cart = ({ open, setIsOpen }) => {
                         </RemoveBtn>
                     )}
                 </CartAndRemoveBtnContainer>
-                <BasketProductsContainer>
-                    {cart.map((item) => {
-                        return (
-                            <BasketProduct key={item?.product.id} product={item?.product} quantity={item?.quantity} />
-                        )
-                    })}
-                </BasketProductsContainer>
-                <CalculationsContainer>
-                    <SummarySpan>total</SummarySpan>
-                    <SummarySum>
-                        $ {cart.length > 0 ? (
-                            `${calculateTotal(cart)}`
-                        ) : 0}
-                    </SummarySum>
-                </CalculationsContainer>
+                {cart.length > 0 ? (
+                    <>
+                        <BasketProductsContainer>
+                            {cart.map((item) => {
+                                return (
+                                    <BasketProduct key={item?.product.id} product={item?.product} quantity={item?.quantity} />
+                                )
+                            })}
+                        </BasketProductsContainer>
+                        <CalculationsContainer>
+                            <SummarySpan>total</SummarySpan>
+                            <SummarySum>
+                                $ {calculateTotal(cart)}
+                            </SummarySum>
+                        </CalculationsContainer>
+                    </>
+                ) :
+                    <Paragraph
+                        text="your cart is empty"
+                        textColor="#979797"
+                    />
+                }
                 <CheckoutLink
                     to={cart.length > 0 ? "/checkout" : null}
                     onClick={handleCloseModal}
@@ -109,7 +117,7 @@ const CartContainer = styled.div`
     transform: translate(-50%, -50%);
     background-color: #FFF;
     width: 70%;
-    max-width: 360px;
+    max-width: 320px;
     @media ${devices.laptop} {
         top: 40%;
         left: 80%;
