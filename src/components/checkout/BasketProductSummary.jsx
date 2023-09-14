@@ -4,46 +4,73 @@ import { Button } from "../buttons/Button"
 import { useContext } from "react";
 import { devices } from "../../ScreenSizes/screenSizes";
 import CartContext from "../../CartContext";
+import { Paragraph } from "../Paragraph";
+import { Link } from "react-router-dom";
 
 export const BasketProductSummary = () => {
     const { cart, calculateTotal, calculateGrandTotal, calculateTax } = useContext(CartContext);
 
     return (
         <BasketSummaryContainer>
-            <SummaryTitle>summary</SummaryTitle>
-            <BasketProductsContainer>
-                {cart.map((item) => {
-                    return (
-                        <BasketProduct quantity={item.quantity} product={item.product} />
-                    )
-                })}
-            </BasketProductsContainer>
-            <PriceCalculationsContainer>
-                <CalculationContainer>
-                    <SummarySpan>total</SummarySpan>
-                    <SummarySum>$ {calculateTotal(cart)}</SummarySum>
-                </CalculationContainer>
-                <CalculationContainer>
-                    <SummarySpan>shipping</SummarySpan>
-                    <SummarySum>$ 50</SummarySum>
-                </CalculationContainer>
-                <CalculationContainer>
-                    <SummarySpan>vat (included)</SummarySpan>
-                    <SummarySum>$ {calculateTax(cart)}</SummarySum>
-                </CalculationContainer>
-            </PriceCalculationsContainer>
-            <CalculationContainer>
-                <SummarySpan>grand total</SummarySpan>
-                <SummaryGrandTotal>$ {calculateGrandTotal(cart)}</SummaryGrandTotal>
-            </CalculationContainer>
-            <Button
-                text="continue & pay"
-                fontWeight="600"
-                backgroundColor="#D87D4A"
-                borderColor="transparent"
-                textColor="#FFF"
-                type="submit"
-            />
+            {cart.length > 0 ? (
+                <>
+                    <SummaryTitle>summary</SummaryTitle>
+                    <BasketProductsContainer>
+                        {cart.map((item) => {
+                            return (
+                                <BasketProduct quantity={item.quantity} product={item.product} />
+                            )
+                        })}
+                    </BasketProductsContainer>
+                    <PriceCalculationsContainer>
+                        <CalculationContainer>
+                            <SummarySpan>total</SummarySpan>
+                            <SummarySum>$ {calculateTotal(cart)}</SummarySum>
+                        </CalculationContainer>
+                        <CalculationContainer>
+                            <SummarySpan>shipping</SummarySpan>
+                            <SummarySum>$ 50</SummarySum>
+                        </CalculationContainer>
+                        <CalculationContainer>
+                            <SummarySpan>vat (included)</SummarySpan>
+                            <SummarySum>$ {calculateTax(cart)}</SummarySum>
+                        </CalculationContainer>
+                    </PriceCalculationsContainer>
+                    <CalculationContainer>
+                        <SummarySpan>grand total</SummarySpan>
+                        <SummaryGrandTotal>$ {calculateGrandTotal(cart)}</SummaryGrandTotal>
+                    </CalculationContainer>
+                </>
+            ) : (
+                <>
+                    <SummaryTitle>Your cart is empty</SummaryTitle>
+                    <Paragraph
+                        text="continue shopping?"
+                        textColor="#979797"
+                    />
+                </>
+            )}
+            {cart.length > 0 ? (
+                <Button
+                    text="continue & pay"
+                    fontWeight="600"
+                    backgroundColor="#D87D4A"
+                    borderColor="transparent"
+                    textColor="#FFF"
+                    type="submit"
+                />
+            ) : (
+                <Link to="/">
+                    <Button
+                        text="back to home"
+                        fontWeight="600"
+                        backgroundColor="#D87D4A"
+                        borderColor="transparent"
+                        textColor="#FFF"
+                    />
+                </Link>
+            )}
+
         </BasketSummaryContainer>
     )
 }
