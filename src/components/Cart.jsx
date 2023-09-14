@@ -1,25 +1,17 @@
 import { styled } from "styled-components"
-import { Button } from "./buttons/Button"
 import { BasketProduct } from "./checkout/BasketProduct"
 import { SummarySpan, SummarySum } from "./checkout/BasketProductSummary"
 import ReactDOM from "react-dom"
 import { Overlay } from "./Overlay"
 import { devices } from "../ScreenSizes/screenSizes"
 import { Link } from "react-router-dom"
-import { useEffect } from "react"
-
+import { useContext, useEffect } from "react"
 import { useLocation } from "react-router-dom";
+import CartContext from "../CartContext"
 
 export const Cart = ({ open, setIsOpen }) => {
-        const location = useLocation()
-
-    const handleRemoveAllProducts = () => {
-
-    }
-
-    const handleCloseModal = () => {
-        setIsOpen(false);
-    }
+    const location = useLocation();
+    const { cart, setCart, calculateTotal } = useContext(CartContext);
 
     useEffect(() => {
         if (open) {
@@ -29,14 +21,21 @@ export const Cart = ({ open, setIsOpen }) => {
         }
     }, [open])
 
-    
     useEffect(() => {
-        console.log("here")
         if (open) {
             setIsOpen(false);
         }
 
     }, [location])
+
+    const handleRemoveAllProducts = () => {
+        localStorage.removeItem("cart");
+        setCart([]);
+    }
+
+    const handleCloseModal = () => {
+        setIsOpen(false);
+    }
 
     if (!open) return null
 
@@ -44,22 +43,27 @@ export const Cart = ({ open, setIsOpen }) => {
         <Overlay>
             <CartContainer>
                 <CartAndRemoveBtnContainer>
-                    <CartTitle>cart (3)</CartTitle>
-                    <RemoveBtn
-                        onClick={handleRemoveAllProducts}
-                    >
-                        Remove all
-                    </RemoveBtn>
+                    <CartTitle>cart ({cart.length === 0 ? "0" : cart.reduce((sum, item) => sum + item.quantity, 0)})</CartTitle>
+                    {cart.length > 0 && (
+                        <RemoveBtn
+                            onClick={handleRemoveAllProducts}
+                        >
+                            Remove all
+                        </RemoveBtn>
+                    )}
                 </CartAndRemoveBtnContainer>
                 <BasketProductsContainer>
-                    {/* basket products */}
-                    <BasketProduct />
-                    <BasketProduct />
-                    <BasketProduct />
+                    {cart.map((item) => {
+                        return (
+                            <BasketProduct key={item?.product.id} product={item?.product} quantity={item?.quantity} />
+                        )
+                    })}
                 </BasketProductsContainer>
                 <CalculationsContainer>
                     <SummarySpan>total</SummarySpan>
-                    <SummarySum>$ 2,344</SummarySum>
+                    <SummarySum>
+                        $ {calculateTotal(cart)}
+                    </SummarySum>
                 </CalculationsContainer>
                 <CheckoutLink to="/checkout" onClick={handleCloseModal}>
                     checkout
@@ -125,6 +129,7 @@ const RemoveBtn = styled.button`
     text-decoration: underline;
     background-color: transparent;
     font-size: 16px;
+    cursor: pointer;
 `
 
 const CartAndRemoveBtnContainer = styled.div`
