@@ -3,7 +3,7 @@ import { BasketProduct } from "./BasketProduct"
 import { Button } from "../buttons/Button"
 import { useContext } from "react";
 import { devices } from "../../ScreenSizes/screenSizes";
-import CartContext from "../../CartContext";
+import CartContext, { shippingFee } from "../../CartContext";
 import { Paragraph } from "../Paragraph";
 import { Link } from "react-router-dom";
 
@@ -18,27 +18,27 @@ export const BasketProductSummary = () => {
                     <BasketProductsContainer>
                         {cart.map((item) => {
                             return (
-                                <BasketProduct quantity={item.quantity} product={item.product} />
+                                <BasketProduct key={item.product.id} quantity={item.quantity} product={item.product} />
                             )
                         })}
                     </BasketProductsContainer>
                     <PriceCalculationsContainer>
                         <CalculationContainer>
                             <SummarySpan>total</SummarySpan>
-                            <SummarySum>$ {calculateTotal(cart)}</SummarySum>
+                            <SummarySum>$ {parseFloat(calculateTotal(cart)).toFixed(2)}</SummarySum>
                         </CalculationContainer>
                         <CalculationContainer>
                             <SummarySpan>shipping</SummarySpan>
-                            <SummarySum>$ 50</SummarySum>
+                            <SummarySum>$ {parseFloat(shippingFee).toFixed(2)}</SummarySum>
                         </CalculationContainer>
                         <CalculationContainer>
                             <SummarySpan>vat (included)</SummarySpan>
-                            <SummarySum>$ {calculateTax(cart)}</SummarySum>
+                            <SummarySum>$ {parseFloat(calculateTax(cart)).toFixed(2)}</SummarySum>
                         </CalculationContainer>
                     </PriceCalculationsContainer>
                     <CalculationContainer>
                         <SummarySpan>grand total</SummarySpan>
-                        <SummaryGrandTotal>$ {calculateGrandTotal(cart)}</SummaryGrandTotal>
+                        <SummaryGrandTotal>$ {parseFloat(calculateGrandTotal(cart)).toFixed(2)}</SummaryGrandTotal>
                     </CalculationContainer>
                 </>
             ) : (
@@ -70,7 +70,6 @@ export const BasketProductSummary = () => {
                     />
                 </Link>
             )}
-
         </BasketSummaryContainer>
     )
 }
@@ -80,6 +79,7 @@ const SummaryTitle = styled.h2`
     font-weight: 700;
     text-transform: uppercase;
 `
+
 const BasketSummaryContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -106,19 +106,23 @@ const PriceCalculationsContainer = styled.div`
     flex-direction: column;
     gap: 10px;
 `
+
 export const SummarySpan = styled.span`
     font-size: 16px;
     text-transform: uppercase;
     font-weight: 300;
 `
+
 const CalculationContainer = styled.div`
     display: flex;
     justify-content: space-between;
 `
+
 export const SummarySum = styled.span`
     font-weight: 700;
     font-size: 18px;
 `
+
 const SummaryGrandTotal = styled(SummarySum)`
     color: #D87D4A;
 `
