@@ -1,10 +1,20 @@
 import { styled } from "styled-components"
 import { devices } from "../ScreenSizes/screenSizes"
+import { useEffect } from "react";
 
+export const Overlay = ({ children, laptopDisplay, handleOutsideClick }) => {
 
-export const Overlay = ({children, laptopDisplay}) => {
+    useEffect(() => {
+        document.body.addEventListener("click", handleOutsideClick, true);
+        return () => {
+            document.body.removeEventListener("click", handleOutsideClick, true);
+        }
+    }, [])
+
     return (
-        <OverlayContainer $laptopDisplay={laptopDisplay}>
+        <OverlayContainer
+            $laptopDisplay={laptopDisplay}
+            onClick={handleOutsideClick}>
             {children}
         </OverlayContainer>
     )
