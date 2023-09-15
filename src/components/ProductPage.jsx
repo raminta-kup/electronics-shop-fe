@@ -2,17 +2,12 @@ import { styled } from "styled-components";
 import { ProductItem } from "./ProductItem";
 import { ProductCategoryHeader } from "./ProductCategoryHeader";
 import { ProductCategoryList } from "./ProductCategoryList";
-import { devices } from "../ScreenSizes/screenSizes";
 import { AudiophileExperience } from "./AudiophileExperience";
 import { Wrapper } from "./Wrapper";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-
 
 export const ProductPage = ({ productCategory }) => {
     const [products, setProducts] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-
     const filteredProductsByCategory = products?.filter(product => product.category === productCategory);
 
     useEffect(() => {
@@ -20,17 +15,8 @@ export const ProductPage = ({ productCategory }) => {
             .then(res => res.json())
             .then(data => {
                 setProducts(data);
-                setIsLoading(false);
             })
     }, []);
-
-    //using "?" (in product?.name) for safety, because if "products" was null or undefined it would throw an error. In this case, it would just show undefined.
-
-    if (isLoading) {
-        return (
-            <div>Loading...</div>
-        )
-    }
 
     return (
         <>
@@ -61,6 +47,7 @@ const StyledProductsContainer = styled.div`
     align-items: center;
     gap: 140px;
 `
+
 const StyledHeadphonesSectionContainer = styled.section`
     display: flex;
     flex-direction: column;
