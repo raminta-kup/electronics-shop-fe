@@ -2,16 +2,16 @@ import { styled } from "styled-components"
 import { BasketProduct } from "./checkout/BasketProduct"
 import { SummarySpan, SummarySum } from "./checkout/BasketProductSummary"
 import ReactDOM from "react-dom"
-import { Overlay } from "./Overlay"
 import { devices } from "../ScreenSizes/screenSizes"
 import { Link } from "react-router-dom"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom";
 import CartContext from "../CartContext"
 import { Paragraph } from "./Paragraph"
 
-export const Cart = ({ open, setIsOpen }) => {
+export const Cart = ({ open, setIsOpen, onClose }) => {
     const location = useLocation();
+    const ref = useRef(null);
     const { cart, setCart, calculateTotal } = useContext(CartContext);
 
     useEffect(() => {
@@ -20,29 +20,41 @@ export const Cart = ({ open, setIsOpen }) => {
         } else {
             document.body.style.overflow = "auto";
         }
-    }, [open])
+    }, [open]);
+
+    useEffect(() => {
+        const checkIfClickedOutside = (e) => {
+            if (ref.current && !ref.current.contains(e.target) && open) {
+                onClose()
+            }
+        }
+        document.addEventListener("click", checkIfClickedOutside, true)
+        return () => {
+            document.removeEventListener("click", checkIfClickedOutside, true)
+        }
+    }, [onClose])
 
     useEffect(() => {
         if (open) {
             setIsOpen(false);
         }
 
-    }, [location])
+    }, [location]);
 
-    const handleRemoveAllProducts = () => {
+    const handleRemoveAllProducts = (e) => {
         localStorage.removeItem("cart");
         setCart([]);
-    }
+    };
 
     const handleCloseModal = () => {
         setIsOpen(false);
-    }
+    };
 
     if (!open) return null
 
     return ReactDOM.createPortal(
-        <Overlay>
-            <CartContainer>
+        <CartOverlay>
+            <CartContainer ref={ref}>
                 <CartAndRemoveBtnContainer>
                     <CartTitle>cart ({cart.length === 0 ? 0 : cart.reduce((sum, item) => sum + item.quantity, 0)})</CartTitle>
                     {cart.length > 0 && (
@@ -58,14 +70,14 @@ export const Cart = ({ open, setIsOpen }) => {
                         <BasketProductsContainer>
                             {cart.map((item) => {
                                 return (
-                                    <BasketProduct key={item?.product.id} product={item?.product} quantity={item?.quantity} />
+                                    <BasketProduct key={item?.product.slug} product={item?.product} quantity={item?.quantity} />
                                 )
                             })}
                         </BasketProductsContainer>
                         <CalculationsContainer>
                             <SummarySpan>total</SummarySpan>
                             <SummarySum>
-                                $ {calculateTotal(cart)}
+                                $ {parseFloat(calculateTotal(cart)).toFixed(2)}
                             </SummarySum>
                         </CalculationsContainer>
                     </>
@@ -82,11 +94,23 @@ export const Cart = ({ open, setIsOpen }) => {
                     {cart.length > 0 ? "checkout" : "close"}
                 </CheckoutLink>
             </CartContainer>
-        </Overlay >,
+        </CartOverlay>,
         document.getElementById("portal")
     )
 }
 
+
+const CartOverlay = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: #0000006a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+`
 
 const CheckoutLink = styled(Link)`
     display: block;
@@ -105,6 +129,8 @@ const CheckoutLink = styled(Link)`
 `
 
 const CartContainer = styled.div`
+    position: relative;
+    z-index: 1001;
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -117,10 +143,12 @@ const CartContainer = styled.div`
     transform: translate(-50%, -50%);
     background-color: #FFF;
     width: 70%;
-    max-width: 320px;
+    max-width: 380px;
+    min-height: 140px;
+    max-height: 400px;
     @media ${devices.laptop} {
-        top: 40%;
-        left: 80%;
+        top: 340px;
+        left: 64%;
     }
 `
 
@@ -134,6 +162,10 @@ const BasketProductsContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 20px 0 0;
+    min-height: 70px;
 `
 
 const RemoveBtn = styled.button`
