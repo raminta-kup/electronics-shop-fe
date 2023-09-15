@@ -28,7 +28,7 @@ export const Menu = ({ open, setMenuOpen }) => {
     if (!open) return null
 
     return ReactDOM.createPortal(
-        <Overlay laptopDisplay="none">
+        <Overlay laptopDisplay="none" handleOutsideClick={() => setMenuOpen(false)}>
             <StyledMenuContainer>
                 <ProductCategory
                     to="/headphones"
