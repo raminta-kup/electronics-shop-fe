@@ -5,8 +5,7 @@ import { devices } from "../ScreenSizes/screenSizes";
 import { Link, useNavigate } from "react-router-dom";
 
 export const ProductItem = ({ product, flexDirection }) => {
-    const navigate = useNavigate();
-    const { id, name, image, new: isNew, description, category, slug } = product;
+    const { name, image, new: isNew, description, category, slug } = product;
 
     return (
         <StyledProductItemContainer
@@ -75,6 +74,7 @@ export const StyledProductImage = styled.img`
     @media ${devices.laptop} {
     }
 `
+
 export const StyledImageContainer = styled.div`
     width: 100%;
     background-color: gray;

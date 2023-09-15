@@ -1,6 +1,13 @@
 import { styled } from "styled-components";
 import { Paragraph } from "./Paragraph";
-import { StyledImageContainer, StyledProductImage, StyledProductInfoContainer, StyledNewProductHeadline, StyledProductItemContainer, StyledProductName } from "./ProductItem";
+import {
+    StyledImageContainer,
+    StyledProductImage,
+    StyledProductInfoContainer,
+    StyledNewProductHeadline,
+    StyledProductItemContainer,
+    StyledProductName
+} from "./ProductItem";
 import { Wrapper } from "./Wrapper";
 import { Button } from "./buttons/Button";
 import { QuantityControl } from "./buttons/QuantityControl";
@@ -37,7 +44,6 @@ export const ProductDisplay = () => {
         )
     }
 
-
     return (
         <Wrapper>
             <ProductDisplayContainer>
@@ -59,7 +65,7 @@ export const ProductDisplay = () => {
                         />
                         <SummarySum>$ {product?.price}</SummarySum>
                         <AddToCartContainer>
-                            <QuantityControl quantity={quantity} setQuantity={(val) => setQuantity(val)} location="productPage"/>
+                            <QuantityControl quantity={quantity} setQuantity={(val) => setQuantity(val)} location="productPage" />
                             <Button
                                 onClick={() => handleAddToCart(product, quantity)}
                                 backgroundColor="#D87D4A"
@@ -94,8 +100,6 @@ export const ProductDisplay = () => {
     )
 }
 
-
-
 const AddToCartContainer = styled.div`
     display: flex;
     gap: 16px;
@@ -107,6 +111,7 @@ const ProductInfoContainer = styled(StyledProductInfoContainer)`
         width: 100%;
     }
 `
+
 const ImgContainer = styled(StyledImageContainer)`
     @media ${devices.tablet} {
         aspect-ratio: 9 / 19;
@@ -168,6 +173,7 @@ const StyledFeaturesContainer = styled.div`
         width: 70%;
     }
 `
+
 const StyledFeaturesAndIncludedContainer = styled.div`
     display: flex;
     flex-direction: column;

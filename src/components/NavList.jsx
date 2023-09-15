@@ -45,7 +45,6 @@ export const NavList = ({ flexDirection, gap, display }) => {
 
 const StyledNav = styled.nav`
     display: ${props => props.$display || "block"};
-
     @media ${devices.laptop} {
           display: flex;
           justify-content: center;
@@ -63,7 +62,6 @@ export const StyledNavList = styled.ul`
     margin: 0;
     padding: 0;
     text-align: center;
-
     @media ${devices.tablet} {
         flex-direction: row;
     }
