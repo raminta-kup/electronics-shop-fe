@@ -2,7 +2,6 @@ import { styled } from "styled-components"
 import { devices } from "../ScreenSizes/screenSizes"
 
 export const ProductDisplayGallery = ({ product }) => {
-
     return (
         <GalleryContainer>
             <GalleryPhotoGroup>
@@ -32,7 +31,6 @@ const GalleryPhotoGroup = styled.div`
         flex-direction: column;
         width: 50%;
     }
-
 `
 
 const GalleryImgRectangle = styled.img`
@@ -42,8 +40,8 @@ const GalleryImgRectangle = styled.img`
     object-fit: cover;
     width: 100%;
     height: 100%;
-    
 `
+
 const GalleryImgSquare = styled.img`
     aspect-ratio: 1 / 1;
     object-fit: cover;

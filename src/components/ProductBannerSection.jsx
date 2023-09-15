@@ -56,8 +56,8 @@ const BannerContainer = styled.div`
     @media ${devices.laptop} {
         width: 100%;
     }
-
 `
+
 const SeeProductTitleBtnContainer = styled.div`
     border-radius: 8px;
     padding: 40px 0 40px 30px;

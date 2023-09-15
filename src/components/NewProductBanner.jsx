@@ -34,6 +34,7 @@ export const NewProductBanner = () => {
                             fontWeight="200"
                             textColor="#F1F1F1"
                             text="Experience natural, lifelike audio and exceptional build quality made for the passionate music enthusiast."
+                            tabletTextAlign="center"
                         />
                     </NewProductInfoContainer>
                     <Link
@@ -94,7 +95,6 @@ const NewProductInfoContainer = styled.div`
     gap: 24px;
     z-index: 1;
     width: 70%;
-
     @media ${devices.laptop} {
         align-items: flex-start;
     }

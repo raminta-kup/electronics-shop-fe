@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 
-
 export const Button = ({ text, backgroundColor, borderColor, textColor, hoverBackground, fontWeight, onClick, type }) => {
   return (
     <StyledButton

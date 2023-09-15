@@ -1,19 +1,11 @@
-import { useState } from "react"
 import { styled } from "styled-components"
 
-export const RadioInput = ({ text, name, id, forName, heading, onChange, isChecked }) => {
-
-    // const [isChecked, setIsChecked] = useState(false);
-
-    const handleInputChange = (e) => {
-        // setIsChecked(e.target.checked);
-    }
+export const RadioInput = ({ text, name, id, forHtml, onChange }) => {
 
     return (
             <InputContainer>
                 <StyledContainer
-                    for={forName}
-                    $isChecked={isChecked}
+                    htmlFor={forHtml}
                 >
                     <StyledInput
                         required
@@ -35,15 +27,15 @@ const InputContainer = styled.div`
 `
 
 const StyledContainer = styled.label`
-    border: 1px solid ${(props) => (props.$isChecked ? "#d87d4a" : "#CFCFCF")};
+    border: 1px solid #CFCFCF;
     padding: 17px;
     border-radius: 4px;
     display: flex;
     font-size: 14px;
     align-items: center;
-    color: ${(props) => (props.$isChecked ? "black" : "#666666")};
-    font-weight: ${(props) => (props.$isChecked ? "700" : "500")};
-    box-shadow: ${(props) => (props.$isChecked ? "0px 0px 2px #D87D4A" : "none")};
+    color: #666;
+    font-weight: 500;
+    box-shadow: none;
 `
 
 const StyledInput = styled.input`

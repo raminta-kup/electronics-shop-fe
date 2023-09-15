@@ -45,9 +45,6 @@ const AudiophileExperienceImgContainer = styled.div`
         background-repeat: no-repeat;
         background-image: url("https://audiophile-ecommerce-mbart13.vercel.app/images/shared/tablet/image-best-gear.jpg");
     }
-    @media ${devices.tablet} {
-
-    }
     @media ${devices.laptop} {
         display: flex;
         flex: 1;

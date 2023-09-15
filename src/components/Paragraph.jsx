@@ -17,9 +17,7 @@ export const Paragraph = ({ text, textAlign, fontWeight, lineHeight, opacity, te
     )
 }
 
-
 export const StyledGrayParagraph = styled.p`
-    /* color: #FFFFFF; */
     font-size: 16px;
     text-align: ${props => props.$textAlign || "center"};
     font-weight: ${props => props.$fontWeight || "500"};

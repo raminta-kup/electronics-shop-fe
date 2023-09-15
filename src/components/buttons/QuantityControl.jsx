@@ -11,7 +11,6 @@ export const QuantityControl = ({ quantity, setQuantity, location, handleQuantit
     }
 
     const handleQuantityDown = () => {
-
         if (location === "productPage" && quantity > 1) {
             setQuantity(quantity - 1);
         } else if (location !== "productPage") {

@@ -1,10 +1,10 @@
 import { styled } from "styled-components"
 
-export const FormInput = ({ text, placeholder, type, name, onChange, forName, id }) => {
+export const FormInput = ({ text, placeholder, type, name, onChange, forHtml, id }) => {
     return (
         <InputContainer>
             <StyledLabel
-                for={forName}
+                htmlFor={forHtml}
             >
                 {text}
             </StyledLabel>

@@ -3,14 +3,14 @@ import confirmationIcon from "../../assets/checkout/icon-order-confirmation.svg"
 import { Paragraph } from "../Paragraph"
 import { BasketProduct } from "./BasketProduct"
 import { devices } from "../../ScreenSizes/screenSizes"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import ReactDOM from "react-dom"
 import { useContext, useEffect } from "react"
 import { Overlay } from "../Overlay"
 import CartContext from "../../CartContext"
 
 export const OrderConfirmationModal = ({ open, onClose, confirmationCart }) => {
-    const { cart, calculateGrandTotal, setCart } = useContext(CartContext);
+    const { calculateGrandTotal, setCart } = useContext(CartContext);
 
     useEffect(() => {
         if (open) {
@@ -141,7 +141,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
-
     @media ${devices.tablet} {
         border-radius: 8px 0 0 8px;
         flex: 1;

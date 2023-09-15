@@ -16,7 +16,6 @@ import CartContext from "../../CartContext";
 export const Checkout = () => {
     const { cart } = useContext(CartContext);
     const [isOpen, setIsOpen] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
     const [confirmationCart, setConfirmationCart] = useState([]);
     const navigate = useNavigate();
 
@@ -72,7 +71,7 @@ export const Checkout = () => {
                             <CheckoutSection sectionTitle="billing details">
                                 <FormInputGroup>
                                     <FormInput
-                                        forName="fullName"
+                                        forHtml="fullName"
                                         text="Full Name"
                                         placeholder="Full Name"
                                         type="text"
@@ -81,7 +80,7 @@ export const Checkout = () => {
                                         id="fullName"
                                     />
                                     <FormInput
-                                        forName="email"
+                                        forHtml="email"
                                         text="Email"
                                         placeholder="alexei@mail.com"
                                         type="email"
@@ -91,7 +90,7 @@ export const Checkout = () => {
                                     />
                                 </FormInputGroup>
                                 <FormInput
-                                    forName="phoneNumber"
+                                    forHtml="phoneNumber"
                                     text="Phone Number"
                                     placeholder="+1 202-555-0136"
                                     type="tel"
@@ -102,7 +101,7 @@ export const Checkout = () => {
                             </CheckoutSection>
                             <CheckoutSection sectionTitle="shipping info">
                                 <FormInput
-                                    forName="address"
+                                    forHtml="address"
                                     text="Your Address"
                                     placeholder="1137 Williams Avenue"
                                     type="address"
@@ -112,7 +111,7 @@ export const Checkout = () => {
                                 />
                                 <FormInputGroup>
                                     <FormInput
-                                        forName="postCode"
+                                        forHtml="postCode"
                                         text="Post Code"
                                         placeholder="10001"
                                         type="text"
@@ -121,7 +120,7 @@ export const Checkout = () => {
                                         id="postCode"
                                     />
                                     <FormInput
-                                        forName="city"
+                                        forHtml="city"
                                         text="City"
                                         placeholder="New York"
                                         type="text"
@@ -131,7 +130,7 @@ export const Checkout = () => {
                                     />
                                 </FormInputGroup>
                                 <FormInput
-                                    forName="country"
+                                    forHtml="country"
                                     text="Country"
                                     placeholder="United States"
                                     type="text"
@@ -146,25 +145,22 @@ export const Checkout = () => {
                                     <RadioInput
                                         heading="payment method"
                                         text="e-Money"
-                                        forName="eMoney"
+                                        forHtml="eMoney"
                                         name="paymentMethod"
                                         id="eMoney"
                                         onChange={handleOnChange}
-                                        isChecked={isChecked}
-
                                     />
                                     <RadioInput
                                         text="cash on delivery"
-                                        forName="cashOnDelivery"
+                                        forHtml="cashOnDelivery"
                                         name="paymentMethod"
                                         id="cashOnDelivery"
                                         onChange={handleOnChange}
-                                        isChecked={isChecked}
                                     />
                                 </FormInputGroup>
                                 <FormInputGroup>
                                     <FormInput
-                                        forName="eMoneyNumber"
+                                        forHtml="eMoneyNumber"
                                         text="e-Money Number"
                                         placeholder="238521993"
                                         type="number"
@@ -173,7 +169,7 @@ export const Checkout = () => {
                                         id="eMoneyNumber"
                                     />
                                     <FormInput
-                                        forName="eMoneyPin"
+                                        forHtml="eMoneyPin"
                                         text="e-Money PIN"
                                         placeholder="6891"
                                         type="number"

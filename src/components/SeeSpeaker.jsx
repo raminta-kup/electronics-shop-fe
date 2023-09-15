@@ -80,16 +80,17 @@ const SeeSpeakerContainer = styled.div`
         justify-content: space-around;
     }
 `
+
 const SpeakerImgContainer = styled.div`
     margin-bottom: -80px;
     @media ${devices.laptop} {
         margin-bottom: -120px;
     }
 `
+
 const SpeakerImg = styled.img`
     width: 100%;
     @media ${devices.laptop} {
         width: 120%;
     }
-
 `

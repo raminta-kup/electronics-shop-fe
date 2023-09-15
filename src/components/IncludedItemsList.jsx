@@ -39,6 +39,7 @@ const StyledListItemQuantity = styled.span`
     color: #D87D4A;
     font-weight: 600;
 `
+
 const StyledListItem = styled.span`
     color: #979797;
     font-size: 16px;

@@ -3,13 +3,13 @@ import { devices } from "../ScreenSizes/screenSizes"
 
 export const Wrapper = ({ children, backgroundColor, gap, wrapperBackgroundColor, margin }) => {
     return (
-        <WrapperAlignCenter 
-        $wrapperBackgroundColor={wrapperBackgroundColor}
-        $margin={margin}
+        <WrapperAlignCenter
+            $wrapperBackgroundColor={wrapperBackgroundColor}
+            $margin={margin}
         >
             <WrapperWidth
-            $backgroundColor={backgroundColor}
-            $gap={gap}
+                $backgroundColor={backgroundColor}
+                $gap={gap}
             >
                 {children}
             </WrapperWidth>
@@ -30,6 +30,7 @@ const WrapperWidth = styled.div`
         width: 60%;
     }
 `
+
 const WrapperAlignCenter = styled.div`
     display: flex;
     justify-content: center;

@@ -1,30 +1,26 @@
-import { products } from "../data/productsCatalog";
 import { ProductCategory } from "./ProductCategory";
 import { styled } from "styled-components";
 import { devices } from "../ScreenSizes/screenSizes";
 
 export const ProductCategoryList = () => {
-    const mappedProductCategories = products.map(product => product.category);
-    // const uniqueCategories = [...new Set(mappedProductCategories)]; 
 
     return (
         <StyledProductCategoryContainer>
             <ProductCategory
                 to="/headphones"
                 category="headphones"
-                categoryImage="https://audiophile-ecommerce-mbart13.vercel.app/images/shared/desktop/image-headphones.png" 
-                />
+                categoryImage="https://audiophile-ecommerce-mbart13.vercel.app/images/shared/desktop/image-headphones.png"
+            />
             <ProductCategory
                 to="/speakers"
                 category="speakers"
-                categoryImage="https://audiophile-e.netlify.app/images/shared/desktop/image-speakers.png" 
-                />
+                categoryImage="https://audiophile-e.netlify.app/images/shared/desktop/image-speakers.png"
+            />
             <ProductCategory
                 to="/earphones"
                 category="earphones"
-                categoryImage="https://audiophile-ecommerce-mbart13.vercel.app/images/shared/desktop/image-earphones.png" 
-                />
-            {/* {uniqueCategories.map(category => <ProductCategory category={category} />)} */}
+                categoryImage="https://audiophile-ecommerce-mbart13.vercel.app/images/shared/desktop/image-earphones.png"
+            />
         </StyledProductCategoryContainer>
     )
 }

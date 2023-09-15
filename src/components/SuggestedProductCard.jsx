@@ -1,10 +1,9 @@
 import { styled } from "styled-components"
 import { Button } from "./buttons/Button"
 import { devices } from "../ScreenSizes/screenSizes"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export const SuggestedProductCard = ({ product }) => {
-
     return (
         <SuggestedProductCardContainer key={product?.id}>
             <SuggestedProductImg src={product?.image.mobile} />

@@ -4,7 +4,6 @@ import { styled } from "styled-components";
 import { devices } from "../ScreenSizes/screenSizes";
 
 export const ProductCategory = ({ category, categoryImage, to }) => {
-
     return (
         <StyledProductCategoryContainer>
             <StyledCategoryImage src={categoryImage} />
@@ -31,10 +30,8 @@ const StyledProductCategoryContainer = styled.div`
     padding: 90px 0 30px 0;
     width: 100%;
     border-radius: 8px;
-    @media ${devices.tablet} {
-     
-    }
 `
+
 const StyledCategoryName = styled.h4`
     font-size: 16px;
     text-transform: uppercase;

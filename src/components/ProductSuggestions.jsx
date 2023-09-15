@@ -1,10 +1,8 @@
 import { styled } from "styled-components"
 import { devices } from "../ScreenSizes/screenSizes"
 import { SuggestedProductCard } from "./SuggestedProductCard"
-import { useNavigate } from "react-router-dom";
 
 export const ProductSuggestions = ({ product }) => {
-
     return (
         <StyledProductSuggestionsContainer>
             <StyledHeading>you may also like</StyledHeading>

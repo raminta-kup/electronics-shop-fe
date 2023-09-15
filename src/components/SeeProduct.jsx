@@ -3,15 +3,12 @@ import { Button } from "./buttons/Button"
 import { Link } from "react-router-dom"
 
 export const SeeProductTitleBtn = ({ text, to }) => {
-
-
-
     return (
         <ProductTitleBtnContainer>
             <ProductTitle>{text}</ProductTitle>
             <Link
-            to={to}
-            target="_top"
+                to={to}
+                target="_top"
             >
                 <Button
                     text="see product"

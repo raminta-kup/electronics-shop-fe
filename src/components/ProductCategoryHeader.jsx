@@ -16,6 +16,7 @@ const StyledProductCategoryHeader = styled.div`
         padding: 80px;
     }
 `
+
 const StyledCategoryHeading = styled.h1`
     font-size: 28px;
     text-transform: uppercase;
