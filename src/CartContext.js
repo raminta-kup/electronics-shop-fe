@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
+export const shippingFee = 10;
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState(() => {
@@ -14,7 +15,8 @@ export const CartProvider = ({ children }) => {
 
     const handleAddToCart = (product, quantity) => {
         const productWithQuantity = { product: product, quantity: quantity };
-        if (cart.length === 0) setCart([productWithQuantity])
+
+        if (cart.length === 0) setCart([productWithQuantity]);
 
         cart.forEach(item => {
             if (item.product.id === product.id) {
@@ -33,7 +35,6 @@ export const CartProvider = ({ children }) => {
             }
         });
     }
-
 
     const handleQuantityChange = (product, type) => {
         const cartCopy = [...cart];
@@ -55,15 +56,12 @@ export const CartProvider = ({ children }) => {
     }
 
     const calculateTotal = (cart) => {
-        const total = cart.map((item) => {
-            let total = 0;
+        let total = 0;
+        cart.forEach((item) => {
             let quantity = item.quantity;
-            for (const item of cart) {
-                total += item.product.price * quantity;
-            }
-            return total;
+            total += item.product.price * quantity
         })
-        return parseFloat(total).toFixed(2);
+        return total;
     }
 
     const calculateTax = (cart) => {
@@ -73,10 +71,9 @@ export const CartProvider = ({ children }) => {
     }
 
     const calculateGrandTotal = (cart) => {
-        const subtotal = Number(calculateTotal(cart));
+        const subtotal = calculateTotal(cart);
         const tax = calculateTax(cart);
-        const shippingFee = 50;
-        const grandtotal = parseFloat(subtotal + shippingFee + tax).toFixed(2);
+        const grandtotal = subtotal + shippingFee + tax;
         return grandtotal;
     }
 
