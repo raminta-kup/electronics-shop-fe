@@ -9,27 +9,24 @@ import { useContext, useState } from "react";
 import { Cart } from "./Cart";
 import { Menu } from "./buttons/Menu";
 import CartContext from "../CartContext";
+import { HamburgerClose } from "./buttons/HamburgerClose";
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const { cart } = useContext(CartContext);
 
-    const handleOpenCart = () => {
-        setIsOpen(true);
-
-    }
-    const handleOpenMenu = () => {
-        setMenuOpen(true);
-    }
-
     return (
         <HeaderWrapper>
             <StyledHeaderContainer>
                 <StyledHamburgerBtn
-                    onClick={handleOpenMenu}
+                    onClick={() => menuOpen ? setMenuOpen(false) : setMenuOpen(true)}
                 >
-                    <Hamburger />
+                    {!menuOpen ? (
+                        <Hamburger />
+                    ) : (
+                        <HamburgerClose />
+                    )}
                 </StyledHamburgerBtn>
                 <StyledLogoContainer>
                     <Link to="/">
@@ -41,7 +38,7 @@ export const Header = () => {
                     gap="40px"
                 />
                 <ShoppingCartBtn
-                    onClick={handleOpenCart}
+                    onClick={() => setIsOpen(true)}
                 >
                     <img src={shoppingCart} />
                     <ItemsInCartSpan>
@@ -51,6 +48,7 @@ export const Header = () => {
                 <Cart
                     open={isOpen}
                     setIsOpen={(val) => setIsOpen(val)}
+                    onClose={() => setIsOpen(false)}
                 />
                 <Menu
                     open={menuOpen}
@@ -69,7 +67,6 @@ const HeaderWrapper = styled.div`
         display: flex;
         justify-content: center;
     }
-
 `
 
 const ItemsInCartSpan = styled.span`
@@ -91,8 +88,9 @@ const ItemsInCartSpan = styled.span`
 const StyledHeaderContainer = styled.header`
     display: flex;
     border-bottom: 1px solid #303030;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 30px;
+    align-items: center;
     @media ${devices.laptop} {
         padding: 30px 0;
         width: 70%;
@@ -115,7 +113,6 @@ const StyledHamburgerBtn = styled.button`
     border: transparent;
     display: flex;
     cursor: pointer;
-
     @media ${devices.laptop} {
         display: none;
 }
@@ -125,7 +122,6 @@ const StyledLogoContainer = styled.div`
     display: flex;
     flex: 1;
     justify-content: center;
-
     @media ${devices.tablet} {
         justify-content: left;
         margin-left: 30px;
