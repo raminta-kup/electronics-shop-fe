@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Frontend Mentor - Audiophile e-commerce website solution
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a solution to the [Audiophile e-commerce website challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/audiophile-ecommerce-website-C8cuSd_wx). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Links](#links)
+  - [Setup](#setup)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+- [Author](#author)
 
-### `npm start`
+### Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### The challenge
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Users should be able to:
 
-### `npm test`
+- View the optimal layout for the app depending on their device's screen size :heavy_check_mark:
+- See hover states for all interactive elements on the page :heavy_check_mark:
+- Add/Remove products from the cart :heavy_check_mark:
+- Edit product quantities in the cart :heavy_check_mark:
+- Fill in all fields in the checkout :heavy_check_mark:
+- Receive form validations if fields are missed or incorrect during checkout :heavy_check_mark:
+- See correct checkout totals depending on the products in the cart :heavy_check_mark:
+  - Shipping always adds $10 to the order :heavy_check_mark:
+  - VAT is calculated as 20% of the product total, excluding shipping :heavy_check_mark:
+- See an order confirmation modal after checking out with an order summary :heavy_check_mark:
+- Keep track of what's in the cart, even after refreshing the browser :heavy_check_mark:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Links
 
-### `npm run build`
+[Live Site URL]
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To run this project locally:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
 
-### `npm run eject`
+   ```
+   git clone https://github.com/raminta-kup/electronics-shop-fe.git
+2. Install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```
+    npm install
+3. Start the development server:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```
+    npm start
+4. Open the app in your browser at
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ```
+    http://localhost:3000
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## My process
 
-## Learn More
+### Built with
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [React](https://reactjs.org/) - JS library
+- Component-Based Development
+- [Styled Components](https://styled-components.com/)
+- Mobile-first approach
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### What I learned
 
-### Code Splitting
+#### React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- I deepened my understanding of React's component-based architecture. I learned how to create and manage reusable components, making my code more modular and maintainable.
+- I became proficient in using React's state management to handle dynamic data within my application. This allowed me to create interactive and responsive user interfaces.
+- I explored the Context API to efficiently manage global state, simplifying data sharing between components and reducing the need for prop drilling.
 
-### Analyzing the Bundle Size
+#### MongoDB
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+I delved into using MongoDB to fetch and manage data for my application. This included configuring and initializing a connection to the MongoDB database server, defining a data schema to specify the structure of documents, creating a data model to interact with the database, implementing API routes for data retrieval, and effectively handling responses, including error handling. This knowledge significantly enhanced my ability to work with databases and retrieve data efficiently.
 
-### Making a Progressive Web App
+## Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Website - [Github](https://github.com/raminta-kup)
