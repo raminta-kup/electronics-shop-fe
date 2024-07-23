@@ -5,7 +5,6 @@ This is a Dynamic E-commerce Website for selling audio related products. This ap
 ## Table of contents
 
 - [Overview](#overview)
-  - [The challenge](#the-challenge)
   - [Links](#links)
   - [Setup](#setup)
 - [My process](#my-process)
